@@ -191,7 +191,7 @@ export default function ProgressCharts({
                         cursor={{ stroke: 'var(--color-slate)', strokeWidth: 1, strokeDasharray: '3 3' }}
                         contentStyle={{ backgroundColor: 'var(--color-canvas)', borderColor: 'var(--color-slate)', borderRadius: '24px', color: 'var(--color-deep-ink)' }}
                         itemStyle={{ color: 'var(--color-deep-ink)', fontWeight: 600 }}
-                        formatter={(value: number) => [value, 'Rating']}
+                        formatter={(value: any) => [value, 'Rating']}
                       />
                       <Line 
                         type="monotone" 
