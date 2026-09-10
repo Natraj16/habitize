@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-deep-ink: #130e30;
+  --color-hi-yellow: #ffe228;
+  --color-moss-green: #59e25d;
+  --color-fuchsia: #e261e5;
+  --color-slate: #5f5c6e;
+  --color-canvas: #f9fbf2;
+  --color-soft-meadow: #eff2e5;
+  --color-charcoal: #222222;
+  --color-onyx: #000000;
+
+  /* Typography */
+  --font-hedvig: var(--font-hedvig-letters-serif);
+  --font-inter: var(--font-inter);
+
+  /* Border Radius */
+  --radius-3xl: 24px;
+  --radius-full: 48px;
+  --radius-pill: 1440px;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-deep-ink);
+  font-family: var(--font-inter);
+}
+
+/* Custom Utilities for Shadows/Effects without adding them to theme */
+@layer utilities {
+  .blob-moss {
+    background-color: var(--color-moss-green);
+    filter: blur(100px);
+  }
+  .blob-fuchsia {
+    background-color: var(--color-fuchsia);
+    filter: blur(100px);
+  }
+  .blob-yellow {
+    background-color: var(--color-hi-yellow);
+    filter: blur(100px);
+  }
+}

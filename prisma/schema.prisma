@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Space {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  createdAt DateTime @default(now())
+  habits    Habit[]
+}
+
+model Habit {
+  id        String   @id @default(cuid())
+  spaceId   String
+  space     Space    @relation(fields: [spaceId], references: [id])
+  name      String
+  archived  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  entries   Entry[]
+}
+
+model Entry {
+  id        String   @id @default(cuid())
+  habitId   String
+  habit     Habit    @relation(fields: [habitId], references: [id])
+  date      DateTime 
+  value     Int      // 1-10
+  createdAt DateTime @default(now())
+
+  @@unique([habitId, date])
+}
