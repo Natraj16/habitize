@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import SpaceDashboardClient from '@/app/components/SpaceDashboardClient'
+import ThemeToggle from '@/app/components/ThemeToggle'
 
 export default async function SpacePage({
   params,
@@ -29,10 +30,10 @@ export default async function SpacePage({
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-deep-ink)] selection:bg-[var(--color-hi-yellow)] selection:text-[var(--color-deep-ink)]">
+    <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-deep-ink)] selection:bg-[var(--color-hi-yellow)] selection:text-[#130e30]">
       
       {/* Navigation Bar */}
-      <nav className="bg-[var(--color-soft-meadow)] border-b border-[var(--color-slate)]/10 px-6 py-4 flex items-center justify-between">
+      <nav className="bg-[var(--color-soft-meadow)] border-b border-[var(--color-card-border)] px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="font-hedvig text-2xl font-bold text-[var(--color-deep-ink)] tracking-tight">
             habitize
@@ -42,9 +43,10 @@ export default async function SpacePage({
           <span className="text-[10px] uppercase tracking-widest font-semibold text-[var(--color-slate)] hidden sm:block">
             Your Secret Code
           </span>
-          <div className="bg-white border border-[var(--color-deep-ink)]/20 px-3 py-1 rounded-[1440px] text-[14px] font-medium text-[var(--color-deep-ink)]">
+          <div className="bg-[var(--color-input-bg)] border border-[var(--color-slate)]/20 px-3 py-1 rounded-[1440px] text-[14px] font-medium text-[var(--color-deep-ink)]">
             {code}
           </div>
+          <ThemeToggle />
         </div>
       </nav>
 

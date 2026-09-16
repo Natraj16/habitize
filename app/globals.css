@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-@theme {
-  /* Colors */
+:root {
+  /* Light Theme */
   --color-deep-ink: #130e30;
   --color-hi-yellow: #ffe228;
   --color-moss-green: #59e25d;
@@ -9,8 +9,37 @@
   --color-slate: #5f5c6e;
   --color-canvas: #f9fbf2;
   --color-soft-meadow: #eff2e5;
-  --color-charcoal: #222222;
-  --color-onyx: #000000;
+  --color-input-bg: #ffffff;
+  --color-card-border: rgba(95, 92, 110, 0.12);
+  --color-blob-opacity: 0.5;
+}
+
+[data-theme="dark"],
+.dark {
+  /* Dark Theme */
+  --color-deep-ink: #f0f2fb;
+  --color-hi-yellow: #ffd700;
+  --color-moss-green: #4ade80;
+  --color-fuchsia: #f472b6;
+  --color-slate: #9da3ba;
+  --color-canvas: #0c0e17;
+  --color-soft-meadow: #141824;
+  --color-input-bg: #1c2132;
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-blob-opacity: 0.22;
+}
+
+@theme {
+  /* Colors linked to CSS variables */
+  --color-deep-ink: var(--color-deep-ink);
+  --color-hi-yellow: var(--color-hi-yellow);
+  --color-moss-green: var(--color-moss-green);
+  --color-fuchsia: var(--color-fuchsia);
+  --color-slate: var(--color-slate);
+  --color-canvas: var(--color-canvas);
+  --color-soft-meadow: var(--color-soft-meadow);
+  --color-input-bg: var(--color-input-bg);
+  --color-card-border: var(--color-card-border);
 
   /* Typography */
   --font-hedvig: var(--font-hedvig-letters-serif);
@@ -26,20 +55,24 @@ body {
   background-color: var(--color-canvas);
   color: var(--color-deep-ink);
   font-family: var(--font-inter);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Custom Utilities for Shadows/Effects without adding them to theme */
+/* Custom Utilities for Shadows/Effects */
 @layer utilities {
   .blob-moss {
     background-color: var(--color-moss-green);
     filter: blur(100px);
+    opacity: var(--color-blob-opacity);
   }
   .blob-fuchsia {
     background-color: var(--color-fuchsia);
     filter: blur(100px);
+    opacity: var(--color-blob-opacity);
   }
   .blob-yellow {
     background-color: var(--color-hi-yellow);
     filter: blur(100px);
+    opacity: var(--color-blob-opacity);
   }
 }

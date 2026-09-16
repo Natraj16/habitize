@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
+import ThemeToggle from '@/app/components/ThemeToggle'
 
 export default function LandingPage() {
   const router = useRouter()
@@ -20,12 +21,17 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-[var(--color-canvas)] text-[var(--color-deep-ink)] flex flex-col items-center justify-center p-6 overflow-hidden">
+      {/* Theme Toggle in Top-Right Corner */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeToggle />
+      </div>
+
       {/* Decorative Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 blob-moss rounded-[1440px] opacity-60 -z-10 mix-blend-multiply"></div>
-      <div className="absolute top-1/3 right-1/4 w-80 h-80 blob-fuchsia rounded-[1440px] opacity-40 -z-10 mix-blend-multiply"></div>
-      <div className="absolute bottom-1/4 left-1/3 w-[30rem] h-[30rem] blob-yellow rounded-[1440px] opacity-50 -z-10 mix-blend-multiply"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 blob-moss rounded-[1440px] -z-10 mix-blend-multiply dark:mix-blend-screen"></div>
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 blob-fuchsia rounded-[1440px] -z-10 mix-blend-multiply dark:mix-blend-screen"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-[30rem] h-[30rem] blob-yellow rounded-[1440px] -z-10 mix-blend-multiply dark:mix-blend-screen"></div>
       
-      <div className="max-w-xl w-full space-y-12 text-center bg-[var(--color-soft-meadow)]/80 backdrop-blur-xl p-12 rounded-[24px] border border-white/50 shadow-sm relative z-10">
+      <div className="max-w-xl w-full space-y-12 text-center bg-[var(--color-soft-meadow)]/80 backdrop-blur-xl p-12 rounded-[24px] border border-[var(--color-card-border)] shadow-sm relative z-10">
         <div className="space-y-6">
           <h1 className="text-6xl md:text-7xl font-bold tracking-tight font-hedvig text-[var(--color-deep-ink)]">
             habitize
@@ -42,16 +48,16 @@ export default function LandingPage() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               placeholder="my-secret-space"
-              className="flex-1 w-full bg-white border border-[var(--color-slate)]/30 rounded-[1440px] px-6 py-4 text-[16px] text-[var(--color-deep-ink)] placeholder-[var(--color-slate)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)] transition-shadow shadow-sm"
+              className="flex-1 w-full bg-[var(--color-input-bg)] border border-[var(--color-slate)]/30 rounded-[1440px] px-6 py-4 text-[16px] text-[var(--color-deep-ink)] placeholder-[var(--color-slate)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)] transition-shadow shadow-sm"
               autoFocus
             />
             <button
               type="submit"
               disabled={isLoading || !code.trim()}
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto bg-[var(--color-hi-yellow)] hover:opacity-90 text-[var(--color-deep-ink)] font-medium text-[16px] rounded-[1440px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)] shadow-sm"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto bg-[var(--color-hi-yellow)] hover:opacity-90 text-[#130e30] font-medium text-[16px] rounded-[1440px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)] shadow-sm cursor-pointer"
             >
               {isLoading ? (
-                <div className="w-5 h-5 border-2 border-[var(--color-deep-ink)]/30 border-t-[var(--color-deep-ink)] rounded-[1440px] animate-spin" />
+                <div className="w-5 h-5 border-2 border-[#130e30]/30 border-t-[#130e30] rounded-[1440px] animate-spin" />
               ) : (
                 <>
                   <span>Go</span>

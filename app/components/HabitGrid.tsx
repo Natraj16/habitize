@@ -165,17 +165,17 @@ export default function HabitGrid({
                                   const val = e.target.value
                                   upsertEntry(habit.id, val === '' ? null : parseInt(val))
                                 }}
-                                className="block w-full min-w-[44px] appearance-none rounded-[1440px] border border-[var(--color-slate)]/20 py-1 px-0 text-[var(--color-deep-ink)] bg-white focus:ring-2 focus:ring-[var(--color-deep-ink)] text-center text-[14px] cursor-pointer hover:border-[var(--color-deep-ink)] transition-colors"
+                                className="block w-full min-w-[44px] appearance-none rounded-[1440px] border border-[var(--color-slate)]/20 py-1 px-0 text-[var(--color-deep-ink)] bg-[var(--color-input-bg)] focus:ring-2 focus:ring-[var(--color-deep-ink)] text-center text-[14px] cursor-pointer hover:border-[var(--color-deep-ink)] transition-colors"
                               >
-                                <option value="">-</option>
+                                <option value="" className="bg-[var(--color-input-bg)] text-[var(--color-deep-ink)]">-</option>
                                 {ratingOptions.map(opt => (
-                                  <option key={opt} value={opt}>{opt}</option>
+                                  <option key={opt} value={opt} className="bg-[var(--color-input-bg)] text-[var(--color-deep-ink)]">{opt}</option>
                                 ))}
                               </select>
                             ) : (
                               <div className="flex justify-center items-center h-8">
                                 {hasValue ? (
-                                  <span className="w-7 h-7 rounded-[1440px] flex items-center justify-center text-[12px] font-medium bg-[var(--color-deep-ink)] text-white">
+                                  <span className="w-7 h-7 rounded-[1440px] flex items-center justify-center text-[12px] font-medium bg-[var(--color-deep-ink)] text-[var(--color-canvas)]">
                                     {entry.value}
                                   </span>
                                 ) : (
@@ -202,10 +202,10 @@ export default function HabitGrid({
                           value={newHabitName}
                           onChange={(e) => setNewHabitName(e.target.value)}
                           placeholder="e.g. Morning Jog, Read 10 Pages..."
-                          className="flex-1 bg-white border border-[var(--color-slate)]/30 rounded-[1440px] px-4 py-2 text-[16px] text-[var(--color-deep-ink)] placeholder-[var(--color-slate)] focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)]"
+                          className="flex-1 bg-[var(--color-input-bg)] border border-[var(--color-slate)]/30 rounded-[1440px] px-4 py-2 text-[16px] text-[var(--color-deep-ink)] placeholder-[var(--color-slate)] focus:outline-none focus:ring-2 focus:ring-[var(--color-deep-ink)]"
                           autoFocus
                         />
-                        <button type="submit" disabled={!newHabitName.trim()} className="px-6 py-2 bg-[var(--color-hi-yellow)] hover:opacity-90 disabled:opacity-50 text-[var(--color-deep-ink)] text-[14px] font-medium rounded-[1440px] transition-opacity flex items-center gap-2">
+                        <button type="submit" disabled={!newHabitName.trim()} className="px-6 py-2 bg-[var(--color-hi-yellow)] hover:opacity-90 disabled:opacity-50 text-[#130e30] text-[14px] font-medium rounded-[1440px] transition-opacity flex items-center gap-2 cursor-pointer">
                           <Save className="w-4 h-4" /> Save
                         </button>
                         <button type="button" onClick={() => setIsAddingHabit(false)} className="px-4 py-2 bg-[var(--color-soft-meadow)] hover:bg-[var(--color-slate)]/10 text-[var(--color-deep-ink)] rounded-[1440px] transition-colors">
