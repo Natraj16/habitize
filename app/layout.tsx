@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Hedvig_Letters_Serif } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {
@@ -33,13 +36,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 const theme = saved || (prefersDark ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
-                if (theme === 'dark') document.documentElement.classList.add('dark');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
               } catch (e) {}
             `,
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
