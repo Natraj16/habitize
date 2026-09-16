@@ -140,11 +140,16 @@ export async function DELETE(
 
     const today = new Date()
     today.setHours(0, 0, 0, 0)
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
 
     await prisma.entry.deleteMany({
       where: {
         habitId: habitId,
-        date: today
+        date: {
+          gte: today,
+          lt: tomorrow
+        }
       }
     })
 
