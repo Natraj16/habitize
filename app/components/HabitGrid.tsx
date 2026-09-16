@@ -25,7 +25,7 @@ type HabitGridProps = {
   isLoading: boolean
   addHabit: (name: string) => Promise<boolean>
   toggleArchiveHabit: (habitId: string, currentArchived: boolean) => Promise<void>
-  upsertEntry: (habitId: string, value: number) => Promise<void>
+  upsertEntry: (habitId: string, value: number | null) => Promise<void>
   selectedHabitId: string | null
   setSelectedHabitId: (id: string | null) => void
 }
@@ -161,10 +161,13 @@ export default function HabitGrid({
                             {isCurrentDay ? (
                               <select
                                 value={entry?.value || ''}
-                                onChange={(e) => upsertEntry(habit.id, parseInt(e.target.value))}
+                                onChange={(e) => {
+                                  const val = e.target.value
+                                  upsertEntry(habit.id, val === '' ? null : parseInt(val))
+                                }}
                                 className="block w-full min-w-[44px] appearance-none rounded-[1440px] border border-[var(--color-slate)]/20 py-1 px-0 text-[var(--color-deep-ink)] bg-white focus:ring-2 focus:ring-[var(--color-deep-ink)] text-center text-[14px] cursor-pointer hover:border-[var(--color-deep-ink)] transition-colors"
                               >
-                                <option value="" disabled>-</option>
+                                <option value="">-</option>
                                 {ratingOptions.map(opt => (
                                   <option key={opt} value={opt}>{opt}</option>
                                 ))}

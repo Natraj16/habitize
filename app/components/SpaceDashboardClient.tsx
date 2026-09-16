@@ -88,26 +88,41 @@ export default function SpaceDashboardClient({ spaceCode, initialHabits }: Props
     }
   }
 
-  const upsertEntry = async (habitId: string, value: number) => {
+  const upsertEntry = async (habitId: string, value: number | null) => {
     const today = startOfDay(new Date()).toISOString()
     const existingIndex = entries.findIndex(e => e.habitId === habitId && isSameDay(parseISO(e.date), new Date()))
     
     let newEntries = [...entries]
-    if (existingIndex >= 0) {
-      newEntries[existingIndex] = { ...newEntries[existingIndex], value }
+    if (value === null) {
+      if (existingIndex >= 0) {
+        newEntries.splice(existingIndex, 1)
+      }
     } else {
-      newEntries.push({ id: `temp-${Date.now()}`, habitId, date: today, value })
+      if (existingIndex >= 0) {
+        newEntries[existingIndex] = { ...newEntries[existingIndex], value }
+      } else {
+        newEntries.push({ id: `temp-${Date.now()}`, habitId, date: today, value })
+      }
     }
     setEntries(newEntries)
 
     try {
-      const res = await fetch(`/api/spaces/${spaceCode}/entries`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ habitId, value })
-      })
-      if (!res.ok) {
-        console.error('Failed to save entry')
+      if (value === null) {
+        const res = await fetch(`/api/spaces/${spaceCode}/entries?habitId=${habitId}`, {
+          method: 'DELETE'
+        })
+        if (!res.ok) {
+          console.error('Failed to delete entry')
+        }
+      } else {
+        const res = await fetch(`/api/spaces/${spaceCode}/entries`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ habitId, value })
+        })
+        if (!res.ok) {
+          console.error('Failed to save entry')
+        }
       }
     } catch (error) {
       console.error('Failed to save entry', error)

@@ -108,3 +108,50 @@ export async function POST(
     return NextResponse.json({ error: 'Failed to save entry' }, { status: 500 })
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ code: string }> }
+) {
+  const code = (await params).code
+  const { searchParams } = new URL(request.url)
+  const habitId = searchParams.get('habitId')
+
+  if (!habitId) {
+    return NextResponse.json({ error: 'Missing habitId' }, { status: 400 })
+  }
+
+  try {
+    const space = await prisma.space.findUnique({
+      where: { code }
+    })
+
+    if (!space) {
+      return NextResponse.json({ error: 'Space not found' }, { status: 404 })
+    }
+
+    const habit = await prisma.habit.findUnique({
+      where: { id: habitId }
+    })
+
+    if (!habit || habit.spaceId !== space.id) {
+      return NextResponse.json({ error: 'Habit not found in this space' }, { status: 404 })
+    }
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    await prisma.entry.deleteMany({
+      where: {
+        habitId: habitId,
+        date: today
+      }
+    })
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Failed to delete entry:', error)
+    return NextResponse.json({ error: 'Failed to delete entry' }, { status: 500 })
+  }
+}
+
